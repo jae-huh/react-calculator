@@ -1,8 +1,8 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import Hello from './Hello'
-import Button from './Button'
+import Hello from './Hello';
+import Calculator from './Calculator';
 
 class App extends React.Component {
   render() {
@@ -17,7 +17,8 @@ class App extends React.Component {
         </p>
         <Hello name="Jae" />
         <Hello name="Rowan" />
-        <Button>New Btn</Button>
+        <Calculator />
+
       </div>
     );
   }

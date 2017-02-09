@@ -1,0 +1,9 @@
+.Display-window {
+  width: 200px;
+  background-color: black;
+  height: 30px;
+  color: yellow;
+  margin: auto;
+  font-size: 25px;
+  margin: 10px auto;
+}
