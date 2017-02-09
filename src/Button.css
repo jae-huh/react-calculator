@@ -1,0 +1,10 @@
+.Button {
+  color: chocolate;
+  background-color: blueviolet;
+  border-radius: 10%;
+  border: 1px solid pink;
+}
+
+.Button:hover {
+  background-color: green;
+}
