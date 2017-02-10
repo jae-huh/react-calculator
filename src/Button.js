@@ -1,14 +1,16 @@
 import React from 'react';
 import './Button.css';
 
-
 class Button extends React.Component {
-  render() {
-    var text = this.props.children
+  clickedMethod = () => {
+    console.log(this.props.children);
+    this.props.onClick(this.props.children)
+  }
 
-    console.log(this.props)
+  render() {
+    var text = this.props.children;
     return (
-      <button className="Button">{text}</button>
+      <button className="Button" onClick={this.clickedMethod}>{text}</button>
     );
   }
 }
