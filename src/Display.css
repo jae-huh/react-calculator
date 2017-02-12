@@ -1,9 +1,11 @@
 .Display-window {
-  width: 200px;
+  width: 220px;
   background-color: black;
-  height: 30px;
-  color: yellow;
-  margin: auto;
+  height: 60px;
+  color: #ebff00;
   font-size: 25px;
   margin: 10px auto;
+  padding: 5px 10px;
+  text-align: right;
+  word-wrap: break-word;
 }

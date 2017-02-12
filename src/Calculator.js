@@ -10,12 +10,6 @@ class Calculator extends React.Component {
     currentNum: ''
   }
 
-  displayLeet = () => {
-    this.setState({
-      screen: 1337
-    })
-  }
-
   clear = () => {
     this.setState({
       screen: '',
@@ -31,7 +25,7 @@ class Calculator extends React.Component {
     })
   }
 
-  plus = (text) => {
+  numOperation = (text) => {
     // ['123', '+', '456']
     this.setState({
       screen: this.state.screen + text,
@@ -47,17 +41,28 @@ class Calculator extends React.Component {
     this.setState({
       screen: this.state.screen + text + this.findAnswer(screenArr),
       screenArr: screenArr,
-      currentNum: '',
+      currentNum: this.findAnswer(screenArr)
     })
   }
 
   findAnswer = (calcArr) => {
+    // ['1', '+', '2', '+', '3']
     var ans = 0
     for (var i = 0; i < calcArr.length; i++) {
+      var num1 = parseFloat(calcArr[i - 1], 10);
+      var num2 = parseFloat(calcArr[i + 1], 10);
       if (calcArr[i] === '+') {
-        var num1 = parseInt(calcArr[i - 1], 10);
-        var num2 = parseInt(calcArr[i + 1], 10);
         ans = num1 + num2;
+        calcArr[i + 1] = ans;
+      } else if (calcArr[i] === '-') {
+        ans = num1 - num2;
+        calcArr[i + 1] = ans;
+      } else if (calcArr[i] === 'x') {
+        ans = num1 * num2;
+        calcArr[i + 1] = ans;
+      } else if (calcArr[i] === '/') {
+        ans = num1 / num2;
+        calcArr[i + 1] = ans;
       }
     }
     return ans;
@@ -73,16 +78,20 @@ class Calculator extends React.Component {
         <Display answer={this.state.screen} />
         <Button onClick={this.updateDisplay}>7</Button>
         <Button onClick={this.updateDisplay}>8</Button>
-        <Button onClick={this.updateDisplay}>9</Button><br />
+        <Button onClick={this.updateDisplay}>9</Button>
+        <Button onClick={this.numOperation}>/</Button><br />
         <Button onClick={this.updateDisplay}>4</Button>
         <Button onClick={this.updateDisplay}>5</Button>
-        <Button onClick={this.updateDisplay}>6</Button><br />
+        <Button onClick={this.updateDisplay}>6</Button>
+        <Button onClick={this.numOperation}>x</Button><br />
         <Button onClick={this.updateDisplay}>1</Button>
         <Button onClick={this.updateDisplay}>2</Button>
-        <Button onClick={this.updateDisplay}>3</Button><br />
+        <Button onClick={this.updateDisplay}>3</Button>
+        <Button onClick={this.numOperation}>-</Button><br />
         <Button onClick={this.updateDisplay}>0</Button>
+        <Button onClick={this.updateDisplay}>.</Button>
         <Button onClick={this.equal}>=</Button>
-        <Button onClick={this.plus}>+</Button><br />
+        <Button onClick={this.numOperation}>+</Button><br />
         <button onClick={this.displayLeet}>1337</button>
         <button onClick={this.clear}>Clear</button>
       </div>
