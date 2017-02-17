@@ -41,7 +41,7 @@ class Calculator extends React.Component {
     this.setState({
       screen: this.state.screen + text + this.findAnswer(screenArr),
       screenArr: screenArr,
-      currentNum: this.findAnswer(screenArr)
+      currentNum: ''
     })
   }
 
@@ -51,28 +51,36 @@ class Calculator extends React.Component {
     for (var i = 0; i < calcArr.length; i++) {
       var num1 = parseFloat(calcArr[i - 1], 10);
       var num2 = parseFloat(calcArr[i + 1], 10);
-      if (calcArr[i] === '+') {
-        ans = num1 + num2;
-        calcArr[i + 1] = ans;
-      } else if (calcArr[i] === '-') {
-        ans = num1 - num2;
-        calcArr[i + 1] = ans;
-      } else if (calcArr[i] === 'x') {
+      if (calcArr[i] === 'x') {
         ans = num1 * num2;
-        calcArr[i + 1] = ans;
+        calcArr.splice(i-1, 3, ans);
+        i -= 2;
       } else if (calcArr[i] === '/') {
         ans = num1 / num2;
-        calcArr[i + 1] = ans;
+        calcArr.splice(i-1, 3, ans);
+        i -= 2;
       }
     }
+    for (var j = 0; j < calcArr.length; j++) {
+      var num12 = parseFloat(calcArr[j - 1], 10);
+      var num22 = parseFloat(calcArr[j + 1], 10);
+      if (calcArr[j] === '+') {
+        ans = num12 + num22;
+        calcArr.splice(j-1, 3, ans);
+        j -= 2;
+      } else if (calcArr[j] === '-') {
+        ans = num12 - num22;
+        calcArr.splice(j-1, 3, ans);
+        j -= 2;
+      }
+    }
+    console.log(calcArr);
     return ans;
   }
 
 
 
   render() {
-    this.findAnswer(['3', '+', '1'])
-
     return (
       <div className="Calculator">
         <Display answer={this.state.screen} />

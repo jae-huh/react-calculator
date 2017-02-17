@@ -3,7 +3,6 @@ import './Button.css';
 
 class Button extends React.Component {
   clickedMethod = () => {
-    console.log(this.props.children);
     this.props.onClick(this.props.children)
   }
 
