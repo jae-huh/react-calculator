@@ -9,7 +9,7 @@ class Calculator extends React.Component {
     screen: '',
     screenArr: [],
     currentNum: '',
-    historyScreen:''
+    historyScreen: []
   }
 
   clear = () => {
@@ -57,7 +57,6 @@ class Calculator extends React.Component {
       currentNum: finalAnswer,
       historyScreen: historyArr
     })
-    console.log(screenArr)
   }
 
   findAnswer = (calcArr) => {
@@ -92,6 +91,20 @@ class Calculator extends React.Component {
     return ans;
   }
 
+  getOldAnswer = (value) => {
+    if (this.state.screen.indexOf('=') !== -1) {
+      this.setState({
+        screen: (value.slice(value.indexOf('=') + 1, value.length)),
+        currentNum: (value.slice(value.indexOf('=') + 1, value.length))
+      })
+    } else {
+      this.setState({
+        screen: this.state.screen + (value.slice(value.indexOf('=') + 1, value.length)),
+        currentNum: this.state.currentNum + (value.slice(value.indexOf('=') + 1, value.length))
+      })
+    }
+  }
+
 
 
   render() {
@@ -118,7 +131,7 @@ class Calculator extends React.Component {
           <button onClick={this.clear}>Clear</button>
         </div>
         <div className="right">
-          <History history={this.state.historyScreen} />
+          <History history={this.state.historyScreen} onClick={this.getOldAnswer} />
         </div>
       </div>
     );
