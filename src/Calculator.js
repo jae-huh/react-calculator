@@ -1,13 +1,15 @@
 import React from 'react';
 import Display from './Display';
 import Button from './Button';
-import './Calculator.css'
+import History from './History';
+import './Calculator.css';
 
 class Calculator extends React.Component {
   state = {
     screen: '',
     screenArr: [],
-    currentNum: ''
+    currentNum: '',
+    historyScreen:''
   }
 
   clear = () => {
@@ -23,6 +25,12 @@ class Calculator extends React.Component {
       screen: this.state.screen + text,
       currentNum: this.state.currentNum + text,
     })
+    if (this.state.screen.indexOf('=') !== -1) {
+      this.setState({
+        screen: text,
+        currentNum: text
+      })
+    }
   }
 
   numOperation = (text) => {
@@ -32,17 +40,24 @@ class Calculator extends React.Component {
       screenArr: [...this.state.screenArr, this.state.currentNum, text],
       currentNum: ''
     })
+    if (this.state.screen.indexOf('=') !== -1) {
+      this.clear();
+    }
   }
 
   equal = (text) => {
     // this.state.screenAr === ['12', '+']
     // this.state.curretNum === '43'
     var screenArr = [...this.state.screenArr, this.state.currentNum]
+    var finalAnswer = this.findAnswer(screenArr);
+    var historyArr = [...this.state.historyScreen, this.state.screen + text + finalAnswer]
     this.setState({
-      screen: this.state.screen + text + this.findAnswer(screenArr),
+      screen: this.state.screen + text + finalAnswer,
       screenArr: screenArr,
-      currentNum: ''
+      currentNum: finalAnswer,
+      historyScreen: historyArr
     })
+    console.log(screenArr)
   }
 
   findAnswer = (calcArr) => {
@@ -74,7 +89,6 @@ class Calculator extends React.Component {
         j -= 2;
       }
     }
-    console.log(calcArr);
     return ans;
   }
 
@@ -83,25 +97,29 @@ class Calculator extends React.Component {
   render() {
     return (
       <div className="Calculator">
-        <Display answer={this.state.screen} />
-        <Button onClick={this.updateDisplay}>7</Button>
-        <Button onClick={this.updateDisplay}>8</Button>
-        <Button onClick={this.updateDisplay}>9</Button>
-        <Button onClick={this.numOperation}>/</Button><br />
-        <Button onClick={this.updateDisplay}>4</Button>
-        <Button onClick={this.updateDisplay}>5</Button>
-        <Button onClick={this.updateDisplay}>6</Button>
-        <Button onClick={this.numOperation}>x</Button><br />
-        <Button onClick={this.updateDisplay}>1</Button>
-        <Button onClick={this.updateDisplay}>2</Button>
-        <Button onClick={this.updateDisplay}>3</Button>
-        <Button onClick={this.numOperation}>-</Button><br />
-        <Button onClick={this.updateDisplay}>0</Button>
-        <Button onClick={this.updateDisplay}>.</Button>
-        <Button onClick={this.equal}>=</Button>
-        <Button onClick={this.numOperation}>+</Button><br />
-        <button onClick={this.displayLeet}>1337</button>
-        <button onClick={this.clear}>Clear</button>
+        <div className="left">
+          <Display answer={this.state.screen} />
+          <Button onClick={this.updateDisplay}>7</Button>
+          <Button onClick={this.updateDisplay}>8</Button>
+          <Button onClick={this.updateDisplay}>9</Button>
+          <Button onClick={this.numOperation}>/</Button><br />
+          <Button onClick={this.updateDisplay}>4</Button>
+          <Button onClick={this.updateDisplay}>5</Button>
+          <Button onClick={this.updateDisplay}>6</Button>
+          <Button onClick={this.numOperation}>x</Button><br />
+          <Button onClick={this.updateDisplay}>1</Button>
+          <Button onClick={this.updateDisplay}>2</Button>
+          <Button onClick={this.updateDisplay}>3</Button>
+          <Button onClick={this.numOperation}>-</Button><br />
+          <Button onClick={this.updateDisplay}>0</Button>
+          <Button onClick={this.updateDisplay}>.</Button>
+          <Button onClick={this.equal}>=</Button>
+          <Button onClick={this.numOperation}>+</Button><br />
+          <button onClick={this.clear}>Clear</button>
+        </div>
+        <div className="right">
+          <History history={this.state.historyScreen} />
+        </div>
       </div>
     );
   }

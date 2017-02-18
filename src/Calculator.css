@@ -1,6 +1,17 @@
 .Calculator {
   padding: 10px;
   border: 3px solid black;
-  width: 300px;
+  width: 600px;
   margin: auto;
+  display: flex;
+}
+
+.left {
+  display: inline-block;
+  width: 50%;
+}
+
+.right {
+  display: inline-block;
+  width: 50%;
 }
