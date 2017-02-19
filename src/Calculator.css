@@ -5,11 +5,11 @@
   width: 540px;
   margin: auto;
   display: flex;
+  justify-content: space-between;
 }
 
 .left {
   display: inline-block;
-  width: 50%;
 }
 
 .right {
