@@ -1,11 +1,12 @@
 .History-window {
   width: 220px;
   background-color: black;
-  height: 325px;
-  color: #ebff00;
+  height: 355px;
+  color: #FFFC00;
   font-size: 25px;
-  margin: 10px auto;
+  margin: 5px auto;
   padding: 5px 10px;
   text-align: right;
   word-wrap: break-word;
+  border-radius: 5px;
 }

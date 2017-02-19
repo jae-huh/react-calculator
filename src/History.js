@@ -5,7 +5,7 @@ import './History.css';
 class History extends React.Component {
   render() {
     var historyList = this.props.history;
-    if (historyList.length > 11) {
+    if (historyList.length > 12) {
       historyList.shift();
     }
     console.log(this.props.history)

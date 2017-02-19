@@ -128,7 +128,7 @@ class Calculator extends React.Component {
           <Button onClick={this.updateDisplay}>.</Button>
           <Button onClick={this.equal}>=</Button>
           <Button onClick={this.numOperation}>+</Button><br />
-          <button onClick={this.clear}>Clear</button>
+          <button className="clear-btn" onClick={this.clear}>Clear</button>
         </div>
         <div className="right">
           <History history={this.state.historyScreen} onClick={this.getOldAnswer} />
